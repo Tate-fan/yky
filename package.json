@@ -1,0 +1,28 @@
+{
+  "name": "yky",
+  "version": "1.0.0",
+  "description": "Get value of object easily use path",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava --tap"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tate-fan/yky.git"
+  },
+  "keywords": [
+    "node.js",
+    "json",
+    "value",
+    "easily"
+  ],
+  "author": "yt_fan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tate-fan/yky/issues"
+  },
+  "homepage": "https://github.com/Tate-fan/yky#readme",
+  "devDependencies": {
+    "ava": "^0.19.1"
+  }
+}
