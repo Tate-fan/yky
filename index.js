@@ -24,29 +24,43 @@ function isString(obj) {
   return toStr.call(obj) === '[object String]';
 }
 
-/**
+/**!
  * @private
- * @param {Object} obj 
- * @param {String} arr 
+ * @param {Object} object
  * @param {String} parent 
- * @return {Array} keys
+ * @returns {Array}
  */
-function listKeys(obj, arr, parent){
+function formatPath(obj, parent) {
   parent = parent || '';
-  if(!Array.isArray(arr)) arr = [];
-  var i;
-  for(i in obj) {
-    if(i) {
-      if(isObject(obj[i])) {
-        parent += '.' + i;
-        var arrs = listKeys(obj[i], arr, parent);
-        arr.concat(arrs);
-      } else {
-        arr.push(parent + '.' + i);
-      }
+  var array = [];
+  for(var key in obj) {
+    if(isObject(obj[key])) {
+      parent = parent + '.' + key;
+      var tmp = formatPath(obj[key], parent)
+      array = array.concat(tmp);
+    } else {
+      array.push(parent + '.' + key);
     }
   }
-  return arr;
+  return array;
+}
+
+/*
+ * @param {any} object 
+ * @param {any} array 
+ * @returns 
+ */
+function _paths(object, array) {
+  array = Array.isArray(array) ? array : [];
+  for(var key in object) {
+    if(isObject(object[key])) {
+      var tmp = formatPath(object[key], key);
+      array = array.concat(tmp);
+    } else {
+      array.push(key);
+    }
+  }
+  return array;
 }
 
 /**
@@ -55,12 +69,12 @@ function listKeys(obj, arr, parent){
  * @param {any} path 
  * @returns 
  */
-function getValue(obj, path) {
+function _get(obj, path) {
   var paths = path.split('.');
   for(var i=0; i< paths.length; i++) {
     if(isObject(obj[paths[i]]) && paths[i+1]) {
       path = paths.slice(1).join('.');
-      return getValue(obj[paths[i]], path);
+      return _get(obj[paths[i]], path);
     } else {
       return obj[paths[i]];
     }
@@ -68,45 +82,56 @@ function getValue(obj, path) {
 }
 
 /**
- * @private contain
- * @param {Object} object
- * @param {String} path
- * @return {Boolen}
+ * @private
+ * @param {Object} obj 
+ * @param {String} path 
+ * @returns {Boolen}
  */
-function contain(object, path) {
-  if(!isObject(object) || !isString(path)) return false;
-  return listKeys(object).indexOf(path) > 0;
-}
-
-/**
- * @public
- * @param {Object} object
- * @param {Array} arr
- * @param {Prefix} prefix
- */
-module.exports = function(object, arr, prefix) {
-  if(arguments.length < 1) throw new Error('Need a object, please!!!');
-  if(typeof arr === 'string') {
-    arr = [];
-    prefix = arr;
+function _contain(obj, path) {
+  var paths = path.split('.');
+  for(var i=0; i< paths.length; i++) {
+    if(isObject(obj[paths[i]]) && paths[i+1]) {
+      path = paths.slice(1).join('.');
+      return _get(obj[paths[i]], path);
+    } else {
+      return !!obj[paths[i]];
+    }
   }
-  if(!isObject(object)) return arr;
-  let keys = listKeys(object, arr, prefix);
-  if(keys.length > 0) keys = keys.map(function(item) {
-    return item.split('.').slice(1).join('.');
-  });
-  return keys;
-};
+}
 
 /**!
  * @public
  * @param {Object} object
- * @param {Array} arr
- * @param {Prefix} prefix
+ * @param {String} path
+ * @return {Any}
  */
-module.exports.valueOfPath = function(obj, path) {
+module.exports = function(obj, path) {
   if(!isString(path) || !isObject(obj)) 
     throw new Error('Need a object and a path, please!!!')
-  if(!contain(obj, path)) return undefined;
-  return getValue(obj, path);
+  path = path || path.trim();
+  return _get(obj, path);
+};
+
+/**
+ * @public
+ * @param {Object} object
+ * @return {Array}
+ */
+module.exports.paths = function(object) {
+  if(arguments.length < 1) throw new Error('Need a object, please!!!');
+  var array = [];
+  if(!isObject(object)) return array;
+  return _paths(object, array);
+};
+
+/**
+ * 
+ * @public contain
+ * @param {Object} object
+ * @param {String} path
+ * @return {Boolen}
+ */
+module.exports.contain = function(object, path) {
+  if(!isObject(object) || !isString(path)) return false;
+  return _contain(object, path);
 };
