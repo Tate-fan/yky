@@ -1,5 +1,8 @@
+
 # yky
 Get value of object easily use path
+
+![building](https://travis-ci.org/Tate-fan/yky.svg?branch=master)
 
 *NOTE*: **not supprt the array current**
 
