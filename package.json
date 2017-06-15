@@ -1,5 +1,5 @@
 {
-  "name": "yky",
+  "name": "knife-json",
   "version": "1.0.1",
   "description": "Get value of object easily use path",
   "main": "index.js",
