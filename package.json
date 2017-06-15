@@ -1,6 +1,6 @@
 {
   "name": "knife-json",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Get value of object easily use path",
   "main": "index.js",
   "scripts": {

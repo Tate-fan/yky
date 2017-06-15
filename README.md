@@ -1,5 +1,4 @@
-
-# yky
+# knife-json
 Get value of object easily use path
 
 ![building](https://travis-ci.org/Tate-fan/yky.svg?branch=master)
@@ -8,13 +7,13 @@ Get value of object easily use path
 
 API
 ===
-1. yky(object, path) => Get the value of the path
-2. yky.paths(object) => get the paths of the object
-2. yky.contain(object, path) => check the paths of the object
+1. knife(object, path) => Get the value of the path
+2. knife.paths(object) => get the paths of the object
+2. knife.contain(object, path) => check the paths of the object
 
 
 ```javascript
-var yky = require('yky');
+var knife = require('knife-json');
 
 var testdata = {
   root: 'root',
@@ -26,7 +25,7 @@ var testdata = {
   }
 };
 
-console.log(yky(testdata, 'nested.nested1.nested2')) // nested3
-console.log(yky.paths(testdata)) // [ 'root', 'name', 'nested.nested1.nested2' ]
-console.log(yky.contain(testdata, 'nested.nested1.nested2')) //true
+console.log(knife(testdata, 'nested.nested1.nested2')) // nested3
+console.log(knife.paths(testdata)) // [ 'root', 'name', 'nested.nested1.nested2' ]
+console.log(knife.contain(testdata, 'nested.nested1.nested2')) //true
 ```
