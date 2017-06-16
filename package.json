@@ -4,7 +4,8 @@
   "description": "Get value of object easily use path",
   "main": "index.js",
   "scripts": {
-    "test": "ava --tap"
+    "test": "standard && ava --tap",
+    "fix": "standard --fix index.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
   },
   "homepage": "https://github.com/Tate-fan/yky#readme",
   "devDependencies": {
-    "ava": "^0.19.1"
+    "ava": "^0.19.1",
+    "standard": "^10.0.2"
   }
 }
