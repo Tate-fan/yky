@@ -19,10 +19,10 @@ test('#Test get value method', function (t) {
 
 test('#Test contain method', function (t) {
   t.pass(knife.contain(testdata, 'nested.nested1'))
+  t.pass(knife.contain(testdata, 'nested.nested'), false)
 })
 
 test('# Get keys of object', function (t) {
   var keys = knife.paths(testdata)
-  console.log(keys)
   t.pass(Array.isArray(keys))
 })
