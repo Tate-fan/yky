@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/Tate-fan/yky#readme",
   "devDependencies": {
-    "ava": "^0.19.1",
+    "ava": "^0.22.0",
     "standard": "^10.0.2"
   }
 }
