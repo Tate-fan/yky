@@ -1,4 +1,6 @@
 # knife-json
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/cheerfyt/knife-json.svg)](https://greenkeeper.io/)
 Get value of object easily use path
 
 ![building](https://travis-ci.org/Tate-fan/yky.svg?branch=master)
